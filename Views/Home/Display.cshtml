@@ -1,0 +1,66 @@
+﻿@model IEnumerable<TaskItem>
+
+<!--This page will display all the movies currently in the database. It will also have the options to both edit and delete from 
+    the page itself any movie currently in the database-->
+<h4 class="text-center">Movie Submissions</h4>
+<br />
+
+<div class="row justify-content-md-center">
+
+
+    <!--Table for the movies-->
+    <div class="col-9">
+        <!--Create a table to iterate through the inputed movies-->
+        <table align="center" class="table table-bordered">
+            <!--Table Headers-->
+            <thead class="thead-light">
+                <tr>
+                    <th>Category</th>
+                    <th>Movie Title</th>
+                    <th>Year</th>
+                    <th>Director</th>
+                    <th>Rating</th>
+                    <th>Edited?</th>
+                    <th>Lent?</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--Gets every instance-->
+                @foreach (var x in Model)
+                {
+                <tr>
+                    <td>@x.Category</td>
+                    <td>@x.Title</td>
+                    <td>@x.Year</td>
+                    <td>@x.Director " " @x.Director</td>
+                    <td>@x.Rating</td>
+                    <td>@x.Edited</td>
+                    <td>@x.Lent</td>
+                    <td>@x.Notes</td>
+                    <!--This action link will trigger the edit action.
+                        As far as I understand, it requires the actionmethod (edit) and also what is named in the controller which in this case is the same.
+                        It also needs route arguments to correspond to the proper instance of the model (movieId will be used for this).
+                        Also, a button for the action is made here too.-->
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = x.MovieId }, new { @class = "btn btn-sm btn-primary" })
+                    </td>
+                    <!--This action will trigger the delete action-->
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = x.MovieId }, new { @class = "btn btn-sm btn-primary" })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />
+<div class="row justify-content-center">
+    <a asp-action="EnterTask" class="btn btn-warning btn-sm" role="button">Submit Another</a>
+</div>
+<br />
+<div class="row justify-content-center">
+    <!--Asp actions that take the user either back to the home page or the movie submission page-->
+    <a asp-action="Index" class="btn btn-outline-dark btn-sm" role="button">Home</a>
+</div
